@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
@@ -33,18 +34,16 @@ namespace WebApplication1.Models
     public class PatientCreateViewModel
     {
         [Display(Name = "Imię")]
-        [Required]
-        [StringLength(20, MinimumLength = 3)]
+        [StringLength(20, MinimumLength = 3,ErrorMessage = "Podaj imie pacjenta")]
         public string Name { get; set; }
 
-        [Required]
+        
         [Display(Name = "Nazwisko")]
-        [StringLength(20, MinimumLength = 3)]
+        [StringLength(20, MinimumLength = 3,ErrorMessage = "Podaj nazwisko pacjenta")]
         public string LastName { get; set; }
 
         [PESEL]
-        [Required]
-        [StringLength(11)]
+        [StringLength(11,MinimumLength = 11,ErrorMessage = "Niepoprawny number pesel")]
         [Display(Name = "Pesel")]
         public string PESEL { get; set; }
 

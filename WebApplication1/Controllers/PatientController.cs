@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Routing.Constraints;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -25,13 +26,13 @@ namespace WebApplication1.Controllers
             this.db = new LabContext();
         }
 
-        // GET: Pacjents
+        // GET: Patient
         public ActionResult Index()
         {
             return View(db.Pacjenci.ToList());
         }
 
-        // GET: Pacjents/Details/5
+        // GET: Patient/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -48,13 +49,13 @@ namespace WebApplication1.Controllers
         }
 
 
-        // GET: Pacjents/Create
+        // GET: Patient/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Pacjents/Create
+        // POST: Patient/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -84,7 +85,7 @@ namespace WebApplication1.Controllers
             return View(patientData);
         }
 
-        // GET: Pacjents/Edit/5
+        // GET: Patient/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -105,7 +106,7 @@ namespace WebApplication1.Controllers
             return View(data);
         }
 
-        // POST: Pacjents/Edit/5
+        // POST: Patient/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -127,7 +128,7 @@ namespace WebApplication1.Controllers
             return View(pacjent);
         }
 
-        // GET: Pacjents/Delete/5
+        // GET: Patient/Delete/5
         [Authorize(Roles = "admin")]
         public ActionResult Delete(int? id)
         {
@@ -143,7 +144,7 @@ namespace WebApplication1.Controllers
             return View(pacjent);
         }
 
-        // POST: Pacjents/Delete/5
+        // POST: Patient/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -5,10 +5,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Szczegóły badania</h2>
 
 <div>
-    <h4>Badanie</h4>
     <hr/>
     <dl class="dl-horizontal">
         <dt>
@@ -42,7 +41,7 @@
         </dd>
     </dl>
     <hr/>
-    <h5>Results:</h5>
+    <h3>Wyniki:</h3>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Result.Complete)
@@ -70,7 +69,7 @@
 </div>
 <p>
     @Html.ActionLink("Powrót", "Index", null, new {@class = "btn btn-primary"})
-    @Html.ActionLink("Dodaj wyniki", "AddResult", new {ExamId = Model.Id}, new {@class = "btn btn-success"})
+    @Html.ActionLink("Edytuj wyniki", "AddResult", new {ExamId = Model.Id}, new {@class = "btn btn-success"})
     @Html.ActionLink("Edytuj", "Edit", new {id = Model.Id}, new {@class = "btn btn-default"})
 
 </p>

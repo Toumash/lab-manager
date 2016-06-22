@@ -7,8 +7,13 @@ namespace WebApplication1.Models
     public class LabContext : IdentityDbContext<ApplicationUser>
     {
         public LabContext()
-            : base(Startup.Environment, throwIfV1Schema: false)
+            : base("db", throwIfV1Schema: false)
         {
+        }
+
+        static LabContext()
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LabContext, Migrations.Configuration>());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -19,7 +19,7 @@ namespace WebApplication1.Models
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime Issued { get; set; }
 
-
+        [Display(Name = "Szczegóły")]
         public string Details { get; set; }
 
         [Display(Name = "Wyniki")]
@@ -38,6 +38,7 @@ namespace WebApplication1.Models
         [Display(Name = "PESEL")]
         public string PESEL { get; set; }
 
+        [Display(Name = "Szczegóły")]
         public string Details { get; set; }
 
         public bool IsExistingPesel { get; set; } = true;
