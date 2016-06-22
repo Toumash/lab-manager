@@ -1,0 +1,56 @@
+﻿@using WebApplication1.HtmlHelper
+@model WebApplication1.Models.Patient
+
+@if (Model.Exams.Any())
+{
+    var headItem = Model.Exams.First();
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => headItem.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => headItem.Issued)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => headItem.Result.Complete)
+                </th>
+                @if (User.IsInRole("admin"))
+                {
+                    @* Just to make last column*@
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Exams)
+            {
+                <tr class="row-link clickable-row" data-href="@Url.Action("Details", "Exam", new {id = item.Id})">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Issued)
+                    </td>
+                    <td>
+                        @* @Html.DisplayFor(modelItem => item.Result.Complete)*@
+                        @Html.Status(item.Result?.Complete)
+                    </td>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Exam", new { id = item.Id }, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Delete", "Delete", "Exam", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h4>Brak zleconych badań</h4>
+}

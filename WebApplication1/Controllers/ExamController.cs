@@ -121,6 +121,15 @@ namespace WebApplication1.Controllers
             return View(badanie);
         }
 
+        public PartialViewResult ForUser(int id)
+        {
+            var patient = db.Pacjenci.Find(id);
+            if (patient != null)
+            {
+                return PartialView(patient);
+            }
+            return PartialView("_ErrorPartial");
+        }
         // GET: Badania/Delete/5
         public ActionResult Delete(int? id)
         {
