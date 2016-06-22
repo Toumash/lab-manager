@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Laboratorium X</h1>
+    <p class="lead">Tutaj złożysz próbki do oceny profesjonalistów</p>
+    <p>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn btn-primary btn-lg">Dowiedz się więcej &raquo;</a>
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Rozpoczęcie</h2>
+        <p>
+            Administrator przydziela konta użytkowanikom, które mogą dodawać zlecenia, jednak to admin finaluzuje wyniki
+        </p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Register", "User", null)">Stwórz użytkowanika &raquo;</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Badania</h2>
+        <p>Po stworzeniu użytkowników (obsługa rejestracji na badania) - użytkownicy mogą dodawać zlecenia na badania</p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Create", "Exam", null)">Zleć badanie &raquo;</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Publikacja wyników badań</h2>
+        <p>Po przeprowadzeniu badań dodaj je do wglądu w rejestracji</p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "Exam", null)">Dodaj wyniki &raquo;</a>
+        </p>
+    </div>
+</div>

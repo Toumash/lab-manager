@@ -1,0 +1,7 @@
+Debug
+obj
+bin
+*.user
+*.suo
+*.sdf
+*.opensdf

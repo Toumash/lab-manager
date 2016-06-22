@@ -1,0 +1,72 @@
+﻿@using WebApplication1.HtmlHelper
+@model WebApplication1.Models.Exam
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Badanie</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.PESEL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.PESEL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Issued)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Issued)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Result.Complete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Result.Complete)
+            @if (Model.Result.Complete)
+            {
+                @Html.DisplayFor(model => model.Result.ReadyTime)
+            }
+        </dd>
+        @if (Model.Result.Complete)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Result.Details)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Result.Details)
+            </dd>
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Powrót", "Index", null, new {@class = "btn btn-primary"})
+    @Html.ActionLink("Dodaj wyniki", "AddResult", new {ExamId = Model.Id}, new {@class = "btn btn-success"})
+    @Html.ActionLink("Edytuj", "Edit", new {id = Model.Id}, new {@class = "btn btn-default"})
+
+</p>
