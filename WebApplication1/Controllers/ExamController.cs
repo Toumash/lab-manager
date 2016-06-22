@@ -110,7 +110,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nazwa,Czas,Wyniki")] Exam badanie)
+        public ActionResult Edit([Bind(Include = "Id,Name,Details")] Exam badanie)
         {
             if (ModelState.IsValid)
             {
@@ -185,10 +185,16 @@ namespace WebApplication1.Controllers
         {
             if (ExamId.HasValue)
             {
+                var exam = db.Badania.FirstOrDefault(b => b.Id == ExamId.Value);
+                if (exam == null)
+                {
+                    return new HttpNotFoundResult("Brak badania z takim ID");
+                }
                 var data = new ExamResultAddViewModel()
                 {
-                    Complete = false,
-                    ExamId = ExamId.Value,
+                    Complete = exam.Result.Complete,
+                    ExamId = exam.Id,
+                    Details = exam.Result.Details
                 };
                 return View(data);
             }

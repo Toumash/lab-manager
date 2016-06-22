@@ -25,6 +25,7 @@ namespace WebApplication1.Models
         [Display(Name = "Pesel")]
         public string PESEL { get; set; }
 
+        [Display(Name = "Badania")]
         public virtual List<Exam> Exams { get; set; }
     }
 

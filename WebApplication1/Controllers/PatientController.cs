@@ -38,7 +38,8 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Patient pacjent = db.Pacjenci.Find(id);
+            Patient pacjent =
+                db.Pacjenci.Include(p => p.Exams).First(p => p.ID == id);
             if (pacjent == null)
             {
                 return HttpNotFound();

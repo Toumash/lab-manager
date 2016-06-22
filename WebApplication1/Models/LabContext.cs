@@ -7,7 +7,7 @@ namespace WebApplication1.Models
     public class LabContext : IdentityDbContext<ApplicationUser>
     {
         public LabContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base(Startup.Environment, throwIfV1Schema: false)
         {
         }
 
