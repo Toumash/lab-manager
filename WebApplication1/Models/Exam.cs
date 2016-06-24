@@ -26,7 +26,6 @@ namespace WebApplication1.Models
         public virtual ExamResult Result { get; set; }
     }
 
-    [NotMapped]
     public class ExamCreateViewModel
     {
         [Required]

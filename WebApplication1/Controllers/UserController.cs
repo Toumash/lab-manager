@@ -7,9 +7,11 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using WebApplication1.Models;
+using WebGrease.Css.Extensions;
 
 namespace WebApplication1.Controllers
 {
@@ -24,12 +26,33 @@ namespace WebApplication1.Controllers
             private set { _userManager = value; }
         }
 
-        private LabContext db = new LabContext();
+        private readonly LabContext db = new LabContext();
 
         // GET: User
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var users = new List<ApplicationUserIndexViewModel>();
+            var data =
+                db.Users.Select(u => new
+                {
+                    Email = u.Email,
+                    Roles = u.Roles,
+                    u.UserName,
+                    PhoneNumber = u.PhoneNumber,
+                    Id = u.Id
+                }).ToList();
+
+            foreach (var user in data)
+            {
+                users.Add(new ApplicationUserIndexViewModel()
+                {
+                    Email = user.Email,
+                    Roles = String.Join(" ", user.Roles.Select(role => db.Roles.Find(role.RoleId).Name)),
+                    UserName = user.UserName,
+                    Id = user.Id
+                });
+            }
+            return View(users);
         }
 
         // GET: User/Create
@@ -39,18 +62,17 @@ namespace WebApplication1.Controllers
         }
 
         // POST: User/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(ApplicationUserCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
+                var user = new ApplicationUser {UserName = model.UserName, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(db.Users.First(u => u.UserName == model.UserName).Id, model.Type);
                     return RedirectToAction("Index", "User");
                 }
                 AddErrors(result);
@@ -76,14 +98,12 @@ namespace WebApplication1.Controllers
         }
 
         // POST: User/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(
             [Bind(
                 Include =
-                    "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName"
+                    "Id,Email,PhoneNumber,UserName"
                 )] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)

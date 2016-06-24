@@ -39,7 +39,10 @@
     <h3>
         @Html.DisplayNameFor(model => model.Exams)
     </h3>
-    @Html.ActionLink("Dodaj badanie", "Create", "Exam", new {UserId = Model.ID}, new {@class = "btn btn-success"})
+    @if (User.IsInRole("admin"))
+    {
+        @Html.ActionLink("Dodaj badanie", "Create", "Exam", new {UserId = Model.ID}, new {@class = "btn btn-success"})
+    }
 
     @Html.Action("ForUser", "Exam", new {id = Model.ID})
 </div>

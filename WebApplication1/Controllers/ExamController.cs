@@ -165,6 +165,7 @@ namespace WebApplication1.Controllers
             base.Dispose(disposing);
         }
 
+        [Authorize(Roles="admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddResult(ExamResultAddViewModel wyniki)

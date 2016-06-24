@@ -1,23 +1,25 @@
+using System;
+using System.Data.Entity.Migrations;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebApplication1.Models;
 
 namespace WebApplication1.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<WebApplication1.Models.LabContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<LabContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(WebApplication1.Models.LabContext context)
+        protected override void Seed(LabContext context)
         {
+            context.Roles.AddOrUpdate(r => r.Name, new IdentityRole {Name = "admin"});
+            context.Roles.AddOrUpdate(r => r.Name, new IdentityRole {Name = "superadmin"});
+            context.Roles.AddOrUpdate(r => r.Name, new IdentityRole {Name = "mod"});
+
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
@@ -25,12 +27,10 @@ namespace WebApplication1.Migrations
             {
                 var user = new ApplicationUser {UserName = "admin", Email = "admin@domena.pl"};
                 var result = userManager.Create(user, "passW0rd!");
+
                 if (result.Succeeded)
                 {
-                    context.Roles.AddOrUpdate(r => r.Name, new IdentityRole
-                    {
-                        Name = "admin"
-                    });
+                    context.Roles.AddOrUpdate(r => r.Name, new IdentityRole {Name = "admin"});
                     context.SaveChanges();
                     userManager.AddToRole(user.Id, "admin");
                 }
@@ -39,19 +39,6 @@ namespace WebApplication1.Migrations
                     throw new Exception("Cannot create the user");
                 }
             }
-            //  This method will
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
         }
     }
 }

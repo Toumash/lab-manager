@@ -1,10 +1,10 @@
-﻿@model IEnumerable<WebApplication1.Models.ApplicationUser>
+﻿@model IEnumerable<WebApplication1.Models.ApplicationUserIndexViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Użytkowanicy</h2>
 
 <p>
     @Html.ActionLink("Stwórz nowego", "Register")
@@ -15,11 +15,7 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
+            @Html.DisplayNameFor(model => model.Roles)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UserName)
@@ -35,15 +31,14 @@
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                @Html.DisplayFor(modelItem => item.Roles)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.ActionLink("Edytuj", "Edit", new {id = item.Id}) |
-                @Html.ActionLink("Szczegóły", "Details", new {id = item.Id}) |
-                @Html.ActionLink("Usuń", "Delete", new {id = item.Id})
+                @Html.ActionLink("Edytuj", "Edit", new {id = item.Id}, new {@class = "btn btn-default"})
+                @Html.ActionLink("Usuń", "Delete", new {id = item.Id}, new {@class = "btn btn-danger"})
             </td>
         </tr>
     }

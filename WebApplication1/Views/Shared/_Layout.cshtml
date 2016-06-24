@@ -27,6 +27,11 @@
                 {
                     <li>@Html.ActionLink("Pacjenci", "Index", "Patient")</li>
                     <li>@Html.ActionLink("Badania", "Index", "Exam")</li>
+                   
+                }
+                @if (User.IsInRole("admin"))
+                {
+                    <li>@Html.ActionLink("Użytkownicy", "Index", "User")</li>
                 }
             </ul>
             @Html.Partial("_LoginPartial")

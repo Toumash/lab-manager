@@ -30,7 +30,6 @@ namespace WebApplication1.Models
         public virtual List<Exam> Exams { get; set; }
     }
 
-    [NotMapped]
     public class PatientCreateViewModel
     {
         [Display(Name = "Imię")]
@@ -51,7 +50,6 @@ namespace WebApplication1.Models
         public Patient ActualPatient { get; set; }
     }
 
-    [NotMapped]
     public class PatientEditViewModel
     {
         public int ID { get; set; }

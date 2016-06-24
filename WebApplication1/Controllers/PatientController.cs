@@ -54,10 +54,7 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-
-        // POST: Patient/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(PatientCreateViewModel patientData)
@@ -106,9 +103,6 @@ namespace WebApplication1.Controllers
             return View(data);
         }
 
-        // POST: Patient/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(PatientEditViewModel pacjent)
@@ -145,6 +139,7 @@ namespace WebApplication1.Controllers
         }
 
         // POST: Patient/Delete/5
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -1,5 +1,4 @@
-﻿#define PUBLISH
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(WebApplication1.Startup))]

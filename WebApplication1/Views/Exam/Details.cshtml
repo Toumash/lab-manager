@@ -69,7 +69,10 @@
 </div>
 <p>
     @Html.ActionLink("Powrót", "Index", null, new {@class = "btn btn-primary"})
-    @Html.ActionLink("Edytuj wyniki", "AddResult", new {ExamId = Model.Id}, new {@class = "btn btn-success"})
+    @if (User.IsInRole("admin"))
+    {
+        @Html.ActionLink("Edytuj wyniki", "AddResult", new {ExamId = Model.Id}, new {@class = "btn btn-success"})
+    }
     @Html.ActionLink("Edytuj", "Edit", new {id = Model.Id}, new {@class = "btn btn-default"})
 
 </p>
